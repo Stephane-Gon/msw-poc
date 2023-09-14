@@ -1,11 +1,11 @@
-
+import PrimaryTemplate from "./design-system/templates/PrimaryTemplate"
 
 function App() {
 
   return (
-    <div>
-      App
-    </div>
+    <PrimaryTemplate>
+      <h1>Home</h1>
+    </PrimaryTemplate>
   )
 }
 
