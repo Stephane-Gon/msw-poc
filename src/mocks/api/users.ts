@@ -4,10 +4,9 @@ import db from '../db';
 import { CreateUserPayload } from '../../store/users/types';
 
 //GET HANDLERS
-const getAllUsers = rest.get('/users/', (__, res, ctx) => {
+const getAllUsers = rest.get('/api/users', (__, res, ctx) => {
   //no pagination
   const users = db.users.getAll();
-
 
   return res(
     ctx.status(200),
@@ -17,8 +16,10 @@ const getAllUsers = rest.get('/users/', (__, res, ctx) => {
   );
 });
 
+
 // CREATE HANDLERS
-const createUser = rest.post('/users/create', (req, res, ctx) => {
+const createUser = rest.post('/api/users/create', (req, res, ctx) => {
+
   const {
     email,
     firstName,
@@ -41,4 +42,6 @@ const createUser = rest.post('/users/create', (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(user));
 });
 
+
 export default [createUser, getAllUsers];
+

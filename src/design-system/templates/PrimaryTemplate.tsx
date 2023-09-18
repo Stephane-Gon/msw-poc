@@ -13,8 +13,11 @@ const PrimaryTemplate = ({ children }: PrimaryTemplateProps) => {
       <NavBar>
         <NavLink onClick={() => navigate('/')}>Home</NavLink>
         <NavLink onClick={() => navigate('/users/create')}>Create User</NavLink>
+        <NavLink onClick={() => navigate('/users/list')}>List Users</NavLink>
       </NavBar>
-      <Content>{children}</Content>
+      <Content>
+        {children}
+    </Content>
     </Wrapper>
   );
 };
