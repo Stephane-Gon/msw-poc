@@ -8,6 +8,23 @@ const UsersList = () => {
   return (
     <Wrapper>
       <h2>Users List</h2>
+      <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+        </tr>
+            {
+                data?.map((el: any) => {
+                    return (
+                    <tr>
+                        <td>{el.id}</td>
+                        <td>{el.name}</td>
+                        <td>{el.email}</td>
+                    </tr>)
+                })
+            }
+      </table>
     </Wrapper>
   )
 }
