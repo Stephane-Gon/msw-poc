@@ -10,9 +10,25 @@ const getAllUsers = rest.get('/api/users', (__, res, ctx) => {
 
   return res(
     ctx.status(200),
-    ctx.json({
-      data: users
-    }),
+    ctx.json(users),
+  );
+});
+
+const getUser = rest.get(`api/users/:id`, (req, res, ctx) => {
+  const { id } = req.params;
+  const userId: number = parseInt(id as string)
+  
+  const user = db.users.findFirst({
+    where: {
+      id: {
+        equals: userId
+      }
+    }
+  });
+
+  return res(
+    ctx.status(200),
+    ctx.json(user),
   );
 });
 
@@ -28,7 +44,7 @@ const createUser = rest.post('/api/users/create', (req, res, ctx) => {
 
   const allUsers = db.users.getAll();
 
-  const id = String(allUsers.length + 1);
+  const id = allUsers.length + 1;
 
   const user = {
     id,
@@ -43,5 +59,5 @@ const createUser = rest.post('/api/users/create', (req, res, ctx) => {
 });
 
 
-export default [createUser, getAllUsers];
+export default [createUser, getAllUsers, getUser];
 
