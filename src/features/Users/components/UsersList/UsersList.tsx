@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import useUsersList from './hooks/useUsersList'
 import { Wrapper} from './styles'
 
 const UsersList = () => {
+  const navigate = useNavigate();
 
-    const { data } = useUsersList()
+  const { data } = useUsersList()
   
   return (
     <Wrapper>
@@ -13,14 +15,19 @@ const UsersList = () => {
             <th>id</th>
             <th>name</th>
             <th>email</th>
+            <th>Edit</th>
         </tr>
             {
-                data?.map((el: any) => {
+                data?.map((el: any, idx: number) => {
                     return (
-                    <tr>
+                    <tr key={`user-idx-${idx}`}>
                         <td>{el.id}</td>
                         <td>{el.name}</td>
                         <td>{el.email}</td>
+                        <td 
+                          style={{paddingInline: "10px", cursor: "pointer", color: "green"}} 
+                          onClick={() => navigate(`/users/update/${el.id}`)}
+                          >Edit</td>
                     </tr>)
                 })
             }

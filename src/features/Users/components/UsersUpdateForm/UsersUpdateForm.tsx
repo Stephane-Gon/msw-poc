@@ -1,13 +1,15 @@
+import { useParams  } from "react-router-dom"
 import { Wrapper, Form, SubmitButton } from "./styles"
 import InputText from "../../../../design-system/atoms/InputText/InputText"
-import useUsersCreateForm from "./hooks/useUsersCreateForm"
+import useUsersUpdateForm from "./hooks/useUsersUpdateForm"
 
-const UsersCreateForm = () => {
-  const { formik, setIsDirty } = useUsersCreateForm()
+const UsersUpdateForm = () => {
+  const { id } = useParams()
+  const { formik, setIsDirty } = useUsersUpdateForm(parseInt(id as string))
 
   return (
     <Wrapper>
-      <h2>Users Create Form</h2>
+      <h2>Users Update Form</h2>
       <Form onSubmit={formik.handleSubmit}>
         <InputText
           label="Email"
@@ -47,4 +49,4 @@ const UsersCreateForm = () => {
   )
 }
 
-export default UsersCreateForm
+export default UsersUpdateForm
