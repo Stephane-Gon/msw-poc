@@ -4,7 +4,6 @@ import useUsersCreateForm from "./hooks/useUsersCreateForm"
 
 const UsersCreateForm = () => {
   const { formik, setIsDirty } = useUsersCreateForm()
-  console.log("🚀 ~ file: UsersCreateForm.tsx:7 ~ UsersCreateForm ~ formik:", formik)
 
   return (
     <Wrapper>
