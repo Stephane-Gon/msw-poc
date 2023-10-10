@@ -14,7 +14,7 @@ const getAllUsers = rest.get('/api/users', (__, res, ctx) => {
   );
 });
 
-const getUser = rest.get(`api/users/:id`, (req, res, ctx) => {
+const getUser = rest.get(`/api/users/:id`, (req, res, ctx) => {
   const { id } = req.params;
   const userId: number = parseInt(id as string)
   
@@ -58,6 +58,36 @@ const createUser = rest.post('/api/users/create', (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(user));
 });
 
+const updateUser = rest.post('/api/users/update/:id', (req, res, ctx) => {
+  const { id } = req.params;
+  const userId: number = parseInt(id as string)
 
-export default [createUser, getAllUsers, getUser];
+  const {
+    email,
+    firstName,
+    lastName
+  } = req.body as Partial<CreateUserPayload>;
+
+
+  const user = {
+    email,
+    first_name: firstName,
+    last_name: lastName
+  };
+
+  db.users.update({
+    where: {
+      id: {
+        equals: userId,
+      },
+    },
+    data: {
+      ...user,
+    },
+  });
+
+  return res(ctx.status(200), ctx.json(user));
+});
+
+export default [createUser, getAllUsers, getUser, updateUser];
 

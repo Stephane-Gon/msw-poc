@@ -32,7 +32,7 @@ const useUsersCreateForm = () => {
     validateOnMount: false,
     onSubmit: async payload => {
       createUser({ body: payload })
-      navigate('/')
+      navigate('/users/list')
     },
   });
 
