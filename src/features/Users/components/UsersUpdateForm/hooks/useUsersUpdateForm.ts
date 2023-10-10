@@ -6,22 +6,26 @@ import { usersFormSchema } from '../utils';
 // Services
 import { useUpdateUserMutation, useGetUserQuery } from '../../../../../store/users/service';
 
+type InitialValues = {
+  email: string;
+  firstName: string;
+  lastName: string;
+}
 
 const useUsersUpdateForm = (id: number) => {
   const navigate = useNavigate()
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [updateUser] = useUpdateUserMutation()
-  const user = useGetUserQuery(id)
-  console.log("🚀 ~ file: useUsersUpdateForm.ts:15 ~ useUsersUpdateForm ~ user:", user)
+  const { data } = useGetUserQuery(id)
 
   const checkIfDirty = useMemo(() => {
     return isDirty;
   }, [isDirty]);
 
-  const initialValues = {
-    email: "",
-    firstName: "",
-    lastName: "",
+  const initialValues: InitialValues = {
+    email: data ? data.email : "",
+    firstName: data ? data.first_name : "",
+    lastName: data ? data.last_name : "",
   }
 
   // Create formik
@@ -41,6 +45,7 @@ const useUsersUpdateForm = (id: number) => {
   return {
     setIsDirty,
     formik,
+    user: data
   };
 };
 

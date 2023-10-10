@@ -5,43 +5,52 @@ import useUsersUpdateForm from "./hooks/useUsersUpdateForm"
 
 const UsersUpdateForm = () => {
   const { id } = useParams()
-  const { formik, setIsDirty } = useUsersUpdateForm(parseInt(id as string))
+  const updateData = useUsersUpdateForm(parseInt(id as string))
+  console.log("🚀 ~ updateData:", updateData)
+
+  if(!updateData) {
+    return (
+      <Wrapper>
+        <h2>Loading user info</h2>
+      </Wrapper>
+    )
+  }
 
   return (
     <Wrapper>
-      <h2>Users Update Form</h2>
-      <Form onSubmit={formik.handleSubmit}>
+      <h2>User with id: {updateData.user?.id}, Update Form</h2>
+      <Form onSubmit={updateData.formik.handleSubmit}>
         <InputText
           label="Email"
           id="email"
           name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          valid={formik.errors.email === undefined}
-          helpText={formik.errors.email}
+          value={updateData.formik.values.email}
+          onChange={updateData.formik.handleChange}
+          valid={updateData.formik.errors.email === undefined}
+          helpText={updateData.formik.errors.email}
         />
 
         <InputText
           label="First Name"
           id="firstName"
           name="firstName"
-          value={formik.values.firstName}
-          onChange={formik.handleChange}
-          valid={formik.errors.firstName === undefined}
-          helpText={formik.errors.firstName}
+          value={updateData.formik.values.firstName}
+          onChange={updateData.formik.handleChange}
+          valid={updateData.formik.errors.firstName === undefined}
+          helpText={updateData.formik.errors.firstName}
         />
 
         <InputText
           label="Last Name"
           id="lastName"
           name="lastName"
-          value={formik.values.lastName}
-          onChange={formik.handleChange}
-          valid={formik.errors.lastName === undefined}
-          helpText={formik.errors.lastName}
+          value={updateData.formik.values.lastName}
+          onChange={updateData.formik.handleChange}
+          valid={updateData.formik.errors.lastName === undefined}
+          helpText={updateData.formik.errors.lastName}
         />
         
-        <SubmitButton onClick={() => setIsDirty(true)}>
+        <SubmitButton onClick={() => updateData.setIsDirty(true)}>
           Submit
         </SubmitButton>
       </Form>
